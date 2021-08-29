@@ -1,0 +1,19 @@
+.footer-links{
+    background: black;
+    color: white;
+}
+.footer-links > ul {
+    list-style: none;
+}
+@media (min-width: 500px) {
+    .footer-links{
+        background: black;
+        color: white;
+        display: flex;
+        justify-content: flex-start;
+        gap: 2em;
+    }
+    .footer-links > ul {
+        list-style: none;
+    }
+  }
