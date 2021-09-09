@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./AddProduct.css";
 import Header from "../header/header";
+import Footer from "../Footer/Footer";
 import "react-multi-carousel/lib/styles.css";
 
 class AddProduct extends Component {
@@ -114,6 +115,7 @@ class AddProduct extends Component {
             />
           </form>
         </div>
+        <Footer />
       </React.Fragment>
     );
   }

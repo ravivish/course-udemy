@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Footer from "../Footer/Footer";
 import Header from "../header/header";
 import "./Login.css";
 
@@ -25,6 +26,7 @@ class Login extends Component {
             </label>            
             <button>Login</button>
         </form>
+        <Footer />
       </React.Fragment>
     );
   }

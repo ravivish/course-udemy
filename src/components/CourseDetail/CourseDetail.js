@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Footer from "../Footer/Footer";
 import Header from "../header/header";
 import "./CourseDetail.css";
 
@@ -19,7 +20,8 @@ class CourseDetail extends Component {
       }) 
       .catch((err) => console.log(err));
   }
-  addToCart =() => {
+
+  addToCart = () => {
     fetch('/api/cart',{
       method:'POST',
       headers: {
@@ -27,16 +29,16 @@ class CourseDetail extends Component {
       },
       body: JSON.stringify({'productid' : this.props.match.params.id}),
     })
-      .then((res) => res.json())
+      // .then((res) => res.json())
       .then((res) => {
-        if (res) {
-          this.setState({ course: res, loading: false });
-          console.log(this.state);
+        if (res.status === 204) {
+          this.setState({ loading: false });
+          this.props.history.push("/cart");
         }
       }) 
       .catch((err) => console.log(err));
   }
-  getData = () => {
+  bindData = () => {
     const course = this.state.course;
     return (
       <div className="Details">
@@ -58,7 +60,8 @@ class CourseDetail extends Component {
     return (
       <React.Fragment>
         <Header />
-        {this.state.loading ? null : this.getData()}
+        {this.state.loading ? null : this.bindData()}
+        <Footer />
       </React.Fragment>
     );
   }

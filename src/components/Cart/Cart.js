@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Footer from "../Footer/Footer";
 import Header from "../header/header";
 import "./Cart.css";
 
@@ -7,7 +8,7 @@ class Cart extends Component {
     super(props);
     this.state = { course: [], loading: true, totalprice: 0 };
   }
-  componentDidMount() {
+  componentDidMount() { 
     this.fetchCartData();
   }
 
@@ -20,11 +21,11 @@ class Cart extends Component {
           // res.products.forEach((p) => {
           //   price += p.price;
           // });
-          const price = res.products.reduce((sum,e) => {
+          const price = res.products.reduce((sum, e) => {
             return sum += e.price;
-          },0)
+          }, 0)
           this.setState({ course: res, totalprice: price, loading: false });
-          console.log(this.state);
+          // console.log(this.state);
         }
       })
       .catch((err) => console.log(err));
@@ -39,16 +40,22 @@ class Cart extends Component {
               <li key={e._id} className="cart-list">
                 <div className="cart-list-items">
                   <img className="cart-items-thumbnail" src={e.imgurl} alt="product_img" />
-                  <p>{e.headline}</p>                  
+                  <div className="cart-item-description">
+                    <p className="cart-item-product-headline"><strong>{e.headline}</strong></p>
+                    <span>{e.description}</span>
+                  </div>
+                </div>
+                <div className="cart-item-price">
+                  <p>{e.price}</p>
                 </div>
               </li>
             );
           })}
         </div>
         <div className="cart-price">
-          <p>Total Price</p>
+          <p>Total</p> 
           <p>{this.state.totalprice}</p>
-          <input type="button" value="Checkout"/>
+          <input type="button" className="addtocartbtn" value="Checkout" />
         </div>
       </div>
     );
@@ -63,6 +70,7 @@ class Cart extends Component {
         <div className="carts-container">
           {!this.state.loading && this.ShowCartItems()}
         </div>
+        <Footer />
       </React.Fragment>
     );
   }

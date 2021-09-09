@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Footer from "../Footer/Footer";
 import Header from "../header/header";
 import "./OrderDetail.css";
 
@@ -25,6 +26,7 @@ class OrderDetail extends Component {
       <React.Fragment>
         <Header />
         {this.state.loading ? null : this.getData()}
+        <Footer />
       </React.Fragment>
     );
   }

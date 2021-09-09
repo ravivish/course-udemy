@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    gap: 10px;
 }
 .cart-title {
     padding: 50px;
@@ -12,6 +13,10 @@
 }
 .cart-list{
     list-style: none;
+    border: 1px solid black;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 .cart-list-items{
     display: flex;
@@ -20,4 +25,7 @@
 .cart-items-thumbnail{
     max-height: 100px;
     max-width: 100px;
+}
+.cart-item-product-headline {
+    margin: 0;
 }

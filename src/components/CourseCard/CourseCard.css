@@ -11,3 +11,6 @@
 .cart > p {
     margin: 5px 0;
 }
+.list-thumbnail {
+    width: 100%;
+}

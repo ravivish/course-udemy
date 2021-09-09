@@ -5,9 +5,9 @@ import "./CourseCard.css";
 const CourseCard = (props) => (
   <Link to={`/courses/${props.id}`} className="cart">
     <React.Fragment>
-      <img alt="courseimage" src={props.imgurl} />
-      <p>{props.title}</p>
-      <p>{props.headline}</p>
+        <img className="list-thumbnail" alt="courseimage" src={props.imgurl} />
+        <p>{props.title}</p>
+        <p>{props.headline}</p>
     </React.Fragment>
   </Link>
 );
