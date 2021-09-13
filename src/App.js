@@ -7,8 +7,10 @@ import Footer from "./components/Footer/Footer";
 function App() {
   return (
     <React.Fragment>
-      <Header />
-      <ListProduct />
+      <div className="content">
+        <Header />
+        <ListProduct />
+      </div>
       <Footer />
     </React.Fragment>
   );

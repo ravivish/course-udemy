@@ -8,7 +8,7 @@ class Cart extends Component {
     super(props);
     this.state = { course: [], loading: true, totalprice: 0 };
   }
-  componentDidMount() { 
+  componentDidMount() {
     this.fetchCartData();
   }
 
@@ -53,7 +53,7 @@ class Cart extends Component {
           })}
         </div>
         <div className="cart-price">
-          <p>Total</p> 
+          <p>Total</p>
           <p>{this.state.totalprice}</p>
           <input type="button" className="addtocartbtn" value="Checkout" />
         </div>
@@ -63,12 +63,14 @@ class Cart extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
-        <div className="cart-title">
-          <span>Shopping Cart</span>
-        </div>
-        <div className="carts-container">
-          {!this.state.loading && this.ShowCartItems()}
+        <div className="content">
+          <Header />
+          <div className="cart-title">
+            <span>Shopping Cart</span>
+          </div>
+          <div className="carts-container">
+            {!this.state.loading && this.ShowCartItems()}
+          </div>
         </div>
         <Footer />
       </React.Fragment>

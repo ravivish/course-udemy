@@ -84,12 +84,12 @@ class Courses extends Component {
   render() {
     return (
       <React.Fragment>
-        <Banner />
-        {this.state.loading ? null : this.getCaraousal()}
-        {/* <button onClick={this.showModal} className="Tq">
+          <Banner />
+          {this.state.loading ? null : this.getCaraousal()}
+          {/* <button onClick={this.showModal} className="Tq">
           Test
-        </button>
-        <Modal show={this.state.isshowModal} modalClosed={this.closeModal}>
+          </button>
+          <Modal show={this.state.isshowModal} modalClosed={this.closeModal}>
           Hello again
         </Modal> */}
       </React.Fragment>

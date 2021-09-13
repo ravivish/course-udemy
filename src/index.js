@@ -13,13 +13,13 @@ function Index() {
     <Router>
       {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-      <Switch>
-        <Route exact path="/" component={App} />
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/add" component={AddProduct} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/courses/:id" component={CourseDetail} />
-      </Switch>
+        <Switch>
+          <Route exact path="/" component={App} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/add" component={AddProduct} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/courses/:id" component={CourseDetail} />
+        </Switch>
     </Router>
   );
 }

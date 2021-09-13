@@ -17,17 +17,17 @@ class CourseDetail extends Component {
           this.setState({ course: res, loading: false });
           // console.log(this.state);
         }
-      }) 
+      })
       .catch((err) => console.log(err));
   }
 
   addToCart = () => {
-    fetch('/api/cart',{
-      method:'POST',
+    fetch('/api/cart', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({'productid' : this.props.match.params.id}),
+      body: JSON.stringify({ 'productid': this.props.match.params.id }),
     })
       // .then((res) => res.json())
       .then((res) => {
@@ -35,7 +35,7 @@ class CourseDetail extends Component {
           this.setState({ loading: false });
           this.props.history.push("/cart");
         }
-      }) 
+      })
       .catch((err) => console.log(err));
   }
   bindData = () => {
@@ -59,8 +59,10 @@ class CourseDetail extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
-        {this.state.loading ? null : this.bindData()}
+        <div className="content">
+          <Header />
+          {this.state.loading ? null : this.bindData()}
+        </div>
         <Footer />
       </React.Fragment>
     );
