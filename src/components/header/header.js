@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import axios from "axios";                
+import axios from "axios";
 import ReactModal from 'react-modal';
 function widthFinder() {
   //if any element causes horizontal scroll, this will print the tag
@@ -50,7 +50,7 @@ class header extends Component {
   }
   componentDidMount() {
     widthFinder();
-    SessionExist();
+    // SessionExist();
   }
   SessionExist = () => {
     axios.post(`/api/sessions`, {
@@ -98,7 +98,18 @@ class header extends Component {
       </ReactModal>
     );
   }
-
+  loginButtons = () => {
+    return (
+      <React.Fragment>
+        <Link className="nav-items loginbtn" to="/login">
+          Login
+        </Link>
+        <Link className="nav-items signupbtn" to="/signup">
+          Signup
+        </Link>
+      </React.Fragment>
+    );
+  }
   render() {
     ReactModal.setAppElement('#root');
     let teachmodal = this.teachOnUdemy();
@@ -139,13 +150,7 @@ class header extends Component {
               <Link className="nav-items" to="/cart">
                 <ShoppingCartIcon />
               </Link>
-              <Link className="nav-items loginbtn" to="/login">
-                Login
-              </Link>
-              <Link className="nav-items signupbtn" to="/signup">
-                Signup
-              </Link>
-
+              {!this.state.isLoggedIn && this.loginButtons()}
             </ul>
             {this.state.loaded && businessmodal}
             {this.state.loaded && teachmodal}
