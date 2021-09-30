@@ -11,30 +11,26 @@ class Footer extends Component {
   render() {
     return (
       <div className="footer">
-        <div className="footer-links">
-          <div className="first-col link-columns">
-
-          </div>
-          <ul className="second-col link-columns">
-            <li>Udemy Business</li>
-            <li>Teach On Udemy</li>
-            <li>Get the App</li>
-            <li>About Us</li>
-            <li>Contact Us</li>
-          </ul>
-          <ul className="third-col link-columns">
-            <li>Career</li>
-            <li>Blog</li>
-            <li>Help and Support</li>
-            <li>Affiliate</li>
-          </ul>
-          <ul className="fourth-col link-columns">
-            <li>Teams</li>
-            <li>Privacy Policy</li>
-            <li>Sitemap</li>
-          </ul>
-        </div>
+        <ul className="first-col link-columns">
+          <li>Udemy Business</li>
+          <li>Teach On Udemy</li>
+          <li>Get the App</li>
+          <li>About Us</li>
+          <li>Contact Us</li>
+        </ul>
+        <ul className="second-col link-columns">
+          <li>Career</li>
+          <li>Blog</li>
+          <li>Help and Support</li>
+          <li>Affiliate</li>
+        </ul>
+        <ul className="third-col link-columns">
+          <li>Teams</li>
+          <li>Privacy Policy</li>
+          <li>Sitemap</li>
+        </ul>
       </div>
+
     );
   }
 }

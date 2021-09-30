@@ -1,23 +1,22 @@
-.footer {
-    grid-row-start: 2;
-    grid-row-end: 3;
-}
-.footer-links{
+
+.footer{
     background: black;
     color: white;
+    font-weight: normal;
 }
-.footer-links > ul {
+.footer > ul {
     list-style: none;
 }
 @media (min-width: 500px) {
-    .footer-links{
+    .footer{
         background: black;
         color: white;
         display: flex;
         justify-content: flex-start;
         gap: 2em;
+        font-weight: normal;
     }
-    .footer-links > ul {
+    .footer > ul {
         list-style: none;
     }
   }

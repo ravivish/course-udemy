@@ -1,16 +1,16 @@
 .login-container {
     display: flex;
-    margin-top: 50px;
-    
-    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: calc(100px,);   
+    border: black solid 2px;
 }
 form {
     display: grid;
-    /* grid-template-columns: max-content 1fr; */
     justify-content: center;
     grid-column-gap: 1em;
-    margin-top: 50px;
-    
+    margin-top: 50px;    
 }
 
 .field {

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./App";
 import AddProduct from "./components/AddProduct/AddProduct";
 import Login from "./components/Login/Login";
+import Signup from "./components/Signup/Signup";
 import CourseDetail from "./components/CourseDetail/CourseDetail";
 import Cart from "./components/Cart/Cart";
 
@@ -18,6 +19,7 @@ function Index() {
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/add" component={AddProduct} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
           <Route exact path="/courses/:id" component={CourseDetail} />
         </Switch>
     </Router>

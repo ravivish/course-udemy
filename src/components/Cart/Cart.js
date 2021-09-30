@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../header/header";
+// import { handleErrors } from '../../httphelpers/httphelpers'
+import axios from "axios";
 import "./Cart.css";
 
 class Cart extends Component {
@@ -13,24 +15,35 @@ class Cart extends Component {
   }
 
   fetchCartData = () => {
-    fetch(`/api/cart`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res) {
-          // let price = 0;
-          // res.products.forEach((p) => {
-          //   price += p.price;
-          // });
-          const price = res.products.reduce((sum, e) => {
-            return sum += e.price;
-          }, 0)
-          this.setState({ course: res, totalprice: price, loading: false });
-          // console.log(this.state);
-        }
-      })
-      .catch((err) => console.log(err));
+    // fetch(`/api/cart`)
+    //   .then(handleErrors)
+    //   .then((res) => {
+    //     if (res) {
+    //       const price = res.products.reduce((sum, e) => {
+    //         return sum += e.price;
+    //       }, 0)
+    //       this.setState({ course: res, totalprice: price, loading: false });
+    //       // console.log(this.state);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     this.setState({ course: [], totalprice: 0, loading: false });
+    //     // console.log(err)
+    //   });
+    axios.get(`/api/cart`).then((res) => {      
+      if (res.status === 200) {
+        const price = res.data.products.reduce((sum, e) => {
+          return sum += e.price;
+        }, 0)
+        this.setState({ course: res.data, totalprice: price, loading: false });
+        // console.log(this.state);
+      }
+    }).catch((err) => {
+          this.setState({ course: [], totalprice: 0, loading: false });
+          // console.log(err)
+        });;
   };
-  ShowCartItems = () => {
+  showCartItems = () => {    
     const cartItems = this.state.course;
     return (
       <div className="cart-container">
@@ -61,6 +74,15 @@ class Cart extends Component {
     );
   };
   render() {
+    let cart;
+    if (this.state.loading) {
+      cart = <div className="cart-loading">Loading...</div>
+    }
+    else if (this.state.course.length === 0) {
+      cart = <div className="empty-cart">Cart is Empty, Keep Shopping</div>
+    } else {
+      cart = this.showCartItems();
+    }
     return (
       <React.Fragment>
         <div className="content">
@@ -69,7 +91,7 @@ class Cart extends Component {
             <span>Shopping Cart</span>
           </div>
           <div className="carts-container">
-            {!this.state.loading && this.ShowCartItems()}
+            {cart}
           </div>
         </div>
         <Footer />

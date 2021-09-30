@@ -79,7 +79,6 @@ router.post("/", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  // const sessionid = req.session.id;
   // console.log(sessionid);
   Cart.findOne({ sessionid: req.session.id })
     .then((cart) => {
@@ -91,11 +90,7 @@ router.get("/", (req, res) => {
         return;
       }
     })
-    .catch((e) => console.log(e));
-  // Cart.findOne().then((cart) => {
-  //   res.status(200).send(cart);
-  //   return;
-  // }).catch(e =>console.log(e));
+    .catch((e) => console.log(e));  
 });
 
 module.exports = router;

@@ -4,13 +4,21 @@
     align-items: center;    
 } */
 .header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 5px 5px 10px 2px #777;
 }
+
+
 .banner {
   display: flex;
   align-items: center;
+  overflow-x: hidden; /*hide the horizontal scroll*/
+}
+.nav {
+  display: flex;
+  justify-content: flex-end;
 }
 .banner-image {
   max-width: 7em;
@@ -30,17 +38,16 @@
   cursor: pointer;
 }
 .loginbtn {
-  border: 1px solid #6dace7;
+  border: 1px solid #000;
   padding: 0.8em;
-  border-radius: 5px;
+  color: #000;
   box-sizing: border-box;
 }
 .signupbtn {
-  border: 1px solid #6dace7;
+  border: 1px solid #000;
   color: white;
-  background-color: #6dace7;
+  background-color: #000;
   padding: 0.8em;
-  border-radius: 5px;
   box-sizing: border-box;
 }
 .search-bar {
@@ -50,4 +57,28 @@
   min-width: 25em;
   border: 1px solid;
   font-family: 'Lexend';
+}
+
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + .25rem);
+  background-color: white;
+  padding: .75rem;
+  border-radius: .25rem;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .1);
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out transform 150ms ease-in-out;
+}
+/* .udemy-business > .dropdown > .link:focus + .dropdown-menu { */
+.dropdown > .link:focus + .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
 }
