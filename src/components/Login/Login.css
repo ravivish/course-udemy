@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: calc(100px,);   
+    margin-top: calc(100px + 25px);   
     border: black solid 2px;
 }
 form {
