@@ -3,7 +3,6 @@ import "./header.css";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import axios from "axios";
-import ReactModal from 'react-modal';
 function widthFinder() {
   //if any element causes horizontal scroll, this will print the tag
   let docWidth = document.documentElement.offsetWidth;
@@ -16,41 +15,16 @@ function widthFinder() {
     }
   );
 }
-const customBusinessStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
-const customTeachStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
 
 class header extends Component {
   constructor(props) {
     super(props);
-    this.state = { openModal: false, loaded: false, isLoggedIn: false, user: null };
+    this.state = { showBussinessMenu: false, showTeachingMenu: false, isLoggedIn: false };
   }
-  handleOpenModal = () => {
-    this.setState({ openModal: true, loaded: true });
-  }
-  handleCloseModal = () => {
-    this.setState({ openModal: false, loaded: false });
-  }
+
   componentDidMount() {
     widthFinder();
-    // SessionExist();
+    this.SessionExist();
   }
   SessionExist = () => {
     axios.post(`/api/sessions`, {
@@ -58,45 +32,12 @@ class header extends Component {
       password: this.state.password
     }).then((res) => {
       if (res.status === 201) {
+        this.setState({ isLoggedIn: true });
         console.log('login succeeded');
       }
     }).catch((err) => {
       console.log('err: ', err)
     });
-  }
-  teachOnUdemy = () => {
-    return (
-      <ReactModal
-        parentSelector={() => document.querySelector('#root')}
-        isOpen={this.state.openModal}
-        onRequestClose={this.handleCloseModal}
-        shouldCloseOnOverlayClick={true}
-        style={customTeachStyles}
-        aria={{
-          labelledby: "heading",
-          describedby: "full_description"
-        }}
-      >Turn what you know into an opportunity and reach millions around the world.
-        <button onClick={this.handleCloseModal}>Close</button>
-      </ReactModal>
-    );
-  }
-  udemyBusiness = () => {
-    return (
-      <ReactModal
-        parentSelector={() => document.querySelector('#root')}
-        isOpen={this.state.openModal}
-        onRequestClose={this.handleCloseModal}
-        shouldCloseOnOverlayClick={true}
-        style={customBusinessStyles}
-        aria={{
-          labelledby: "heading",
-          describedby: "full_description"
-        }}
-      >Get your team access to access to over 6,000 top udemy courses,anytime,anywhere.
-        <button onClick={this.handleCloseModal}>Close</button>
-      </ReactModal>
-    );
   }
   loginButtons = () => {
     return (
@@ -110,10 +51,35 @@ class header extends Component {
       </React.Fragment>
     );
   }
+  showBussinesMenuOptions = (event) => {
+    event.preventDefault();
+    this.setState(prevState => ({ showBussinesMenu: !prevState.showBussinesMenu, showTeachingMenu: false }));
+  }
+
+  showTeachingMenuOptions = (event) => {
+    event.preventDefault();
+    this.setState(prevState => ({ showTeachingMenu: !prevState.showTeachingMenu, showBussinesMenu: false }));
+  }
+
+  udemyBussiness = () => {
+    return (
+      <div className="dropdown-menu">
+        Get your team access to access to over 6,000 top udemy courses,anytime,anywhere.
+        <button className="udemy-bussiness-btn">Try Udemy Business</button>
+      </div>
+    );
+  }
+
+  udemyTeaching = () => {
+    return (
+      <div className="dropdown-menu">
+        Turn on what you know in an opputunity and reach the millions around the world.
+        <button className="udemy-bussiness-btn">Learn More</button>
+      </div>
+    );
+  }
+
   render() {
-    ReactModal.setAppElement('#root');
-    let teachmodal = this.teachOnUdemy();
-    let businessmodal = this.udemyBusiness();
     return (
       <React.Fragment>
         <header className="header">
@@ -135,25 +101,23 @@ class header extends Component {
           </section>
           <nav className="nav">
             <ul className="nav-list">
-              <span className="nav-items udemy-business">
-                <div className="dropdown">
-                  <span className="link">Udemy Business</span>
-                  <div className="dropdown-menu">
-                    Get your team access to access to over 6,000 top udemy courses,anytime,anywhere.
-                    <button className="signupbtn">Try Udemy Business</button>
-                  </div>
-                </div>
-              </span>
-              <span className="nav-items udemy-teaching">
-                Teach on Udemy
-              </span>
+              <div className="dropdown">
+                <span className="nav-items udemy-business" onClick={this.showBussinesMenuOptions}>
+                  Udemy Business
+                </span>
+                {this.state.showBussinesMenu && this.udemyBussiness()}
+              </div>
+              <div className="dropdown">
+                <span className="nav-items udemy-teaching" onClick={this.showTeachingMenuOptions}>
+                  Teach on Udemy
+                </span>
+                {this.state.showTeachingMenu && this.udemyTeaching()}
+              </div>
               <Link className="nav-items" to="/cart">
                 <ShoppingCartIcon />
               </Link>
               {!this.state.isLoggedIn && this.loginButtons()}
             </ul>
-            {this.state.loaded && businessmodal}
-            {this.state.loaded && teachmodal}
           </nav>
         </header>
       </React.Fragment>
