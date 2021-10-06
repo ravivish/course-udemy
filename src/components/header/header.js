@@ -15,28 +15,29 @@ function widthFinder() {
     }
   );
 }
-
-class header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { showBussinessMenu: false, showTeachingMenu: false, isLoggedIn: false };
+    this.state = { user: {}, showBussinessMenu: false, showTeachingMenu: false, isLoggedIn: false };
+
   }
 
   componentDidMount() {
     widthFinder();
-    this.SessionExist();
+    this.sessionExist();
   }
-  SessionExist = () => {
-    axios.post(`/api/sessions`, {
-      email: this.state.email,
-      password: this.state.password
-    }).then((res) => {
-      if (res.status === 201) {
-        this.setState({ isLoggedIn: true });
-        console.log('login succeeded');
+  componentDidUpdate() {
+    if (this.state.name) {
+      document.getElementById("user-profile-name").innerHTML = this.state.name;
+    }
+  }
+  sessionExist = () => {
+    axios.get('/api/users/me').then((res) => {
+      if (res.status === 200) {
+        this.setState({ isLoggedIn: true, user: res.data });
       }
     }).catch((err) => {
-      console.log('err: ', err)
+      console.log('err: ', err.message)
     });
   }
   loginButtons = () => {
@@ -79,6 +80,17 @@ class header extends Component {
     );
   }
 
+  profileButtons = () => {
+    return (
+      <div className="profile-photo-container">
+        <div className="user-profile-photo" id="user-profile-name">
+          {this.state.user.firstName.charAt(0)}
+        </div>
+      </div>
+    );
+  }
+
+
   render() {
     return (
       <React.Fragment>
@@ -116,7 +128,7 @@ class header extends Component {
               <Link className="nav-items" to="/cart">
                 <ShoppingCartIcon />
               </Link>
-              {!this.state.isLoggedIn && this.loginButtons()}
+              {!this.state.isLoggedIn ? this.loginButtons() : this.profileButtons()}
             </ul>
           </nav>
         </header>
@@ -124,4 +136,4 @@ class header extends Component {
     );
   }
 }
-export default header;
+export default Header;

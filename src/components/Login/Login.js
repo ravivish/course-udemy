@@ -9,12 +9,10 @@ class Login extends Component {
     super(props);
     this.state = { email: '', password: '' };
     // console.log(props.match.params.id);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
   // TODO: Beautify the login page and add login functionality
   // FIXME: 
-  handleChange(e) {
+  handleChange = (e) => {
     if (e.target.name === 'Email') {
       this.setState({ email: e.target.value });
     }
@@ -22,17 +20,20 @@ class Login extends Component {
       this.setState({ password: e.target.value });
     }
   }
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();    
     axios.post(`/api/sessions`, {
       email: this.state.email,
       password: this.state.password
     }).then((res) => {
-      if (res.status === 204) {
+      if (res.status === 204) {        
         console.log('login succeeded');
+        <Header email={this.state.email} password={this.state.password} />
       }
     }).catch((err) => {
-      console.log('err: ', err)
+      localStorage.removeItem('email');
+        localStorage.removeItem('psd');
+      console.log('err: ', err.message)
     }); 
   }
 

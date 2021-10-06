@@ -86,11 +86,15 @@ router.get("/", (req, res) => {
         res.status(200).send(cart);
         return;
       } else {
-        res.status(500).send();
+        res.status(200).send({});
         return;
       }
     })
-    .catch((e) => console.log(e));  
+    .catch((e) => {
+      console.log(e);
+      res.status(500).send();
+    });
+      
 });
 
 module.exports = router;

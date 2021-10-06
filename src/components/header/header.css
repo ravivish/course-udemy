@@ -72,7 +72,7 @@
   padding: .75rem;
   border-radius: .25rem;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .1);
-  z-index: 1;  
+  z-index: 10;  
 }
 
 .udemy-bussiness-btn {
@@ -84,4 +84,17 @@
   border: 1px solid #000;
   font-family: 'Lexend';
   margin-top: 1em;
+}
+.profile-photo-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: #333;
+}
+.user-profile-photo {
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  line-height: 38px;
 }

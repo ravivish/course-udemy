@@ -9,13 +9,10 @@ class Signup extends Component {
     super(props);
     this.state = { name: '', email: '', password: '' };
     // console.log(props.match.params.id);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
   // TODO: Beautify the login page and add login functionality
   // FIXME: 
-  handleChange(e) {
+  handleChange = (e) => {
     if (e.target.name === 'FullName') {
       this.setState({ name: e.target.value });
     }
@@ -27,17 +24,18 @@ class Signup extends Component {
     }
 
   }
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     axios.post(`/api/users`,{
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      firstName: this.state.name
     }).then((res) => {
       if (res.status === 201) {
-        console.log('login succeeded');
+        console.log('signup succeeded');
       }
     }).catch((err) => {
-      console.log('err: ', err)
+      console.log('err: ', err.message)
     });;
   }
   render() {

@@ -7,25 +7,25 @@ const bcrypt = require('bcryptjs');
 
 router.post('/', (req, res) => {
     if (!req.body) {
-        res.status(400).send({error: "Email and Password not present in request"});
+        res.status(400).send({ error: "Email and Password not present in request" });
         return;
     }
 
-    const { email, password } = req.body;
+    const { email, password, firstName } = req.body;
 
     if (!email) {
-        res.status(400).send({error: "Email not present in request"});
+        res.status(400).send({ error: "Email not present in request" });
         return;
     }
 
     if (!password) {
-        res.status(400).send({error: "Password not present in request"});
+        res.status(400).send({ error: "Password not present in request" });
         return;
     }
 
     UserCredential.findOne({ email }).then(user => {
         if (user) {
-            res.status(400).send({error: "User already signed up"});
+            res.status(400).send({ error: "User already signed up" });
             return;
         }
 
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
         const userCredential = new UserCredential({ email, password: hash });
 
         userCredential.save().then(() => {
-            const user = new User({ _id: userCredential.id, email });
+            const user = new User({ _id: userCredential.id, email, firstName });
             user.save().then(() => {
                 res.status(201).send({ id: userCredential.id });
             });
@@ -46,7 +46,11 @@ router.post('/', (req, res) => {
 
 router.get('/me', auth.authenticate, (req, res) => {
     User.findOne({ _id: req.session.userId }).then(user => {
-        res.send(user);
+        if(user){
+            res.status(200).send(user);
+        }else{
+            res.status(200).send({});
+        }
     }).catch(() => {
         res.status(500).send({ error: "Internal Server Error" });
     });
@@ -54,7 +58,7 @@ router.get('/me', auth.authenticate, (req, res) => {
 
 router.get('/:userId', (req, res) => {
     User.findOne({ _id: req.params.userId }).then(user => {
-        res.send(user);
+        res.status(200).send(user);
     }).catch(() => {
         res.status(500).send({ error: "Internal Server Error" });
     });
@@ -62,9 +66,9 @@ router.get('/:userId', (req, res) => {
 
 router.put('/me', auth.authenticate, (req, res) => {
     if (!req.session.userId) {
-        res.send(401).send({ error: "Not logged in"});
+        res.send(401).send({ error: "Not logged in" });
     }
-
+    //TODO: add more filed to update the user profile data
     const { firstName, lastName } = req.body;
 
     const updateQuery = {};
@@ -72,7 +76,7 @@ router.put('/me', auth.authenticate, (req, res) => {
     (lastName !== undefined) && (updateQuery.lastName = lastName);
 
     User.updateOne({ _id: req.session.userId }, updateQuery).then(() => {
-        res.status(204).send();
+        res.status(204).send({});
     }).catch(() => {
         res.status(500).send({ error: "Internal Server Error" });
     });
